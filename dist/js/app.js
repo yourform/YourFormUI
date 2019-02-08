@@ -19165,6 +19165,57 @@ var Content = React.createClass({displayName: "Content",
   },
   _onSubmitFormHandler: function () {
 
+    console.log("PROPS: ", this.state.inputDatas[0].value);
+
+    let query = {"name": this.state.inputDatas[0].value,
+                 "age": this.state.inputDatas[1].value,
+                 "partners": this.state.inputDatas[2].value,
+                 "intercourse": this.state.inputDatas[3].value,
+                 "pregnancies": this.state.inputDatas[4].value,
+                 "smokes": this.state.inputDatas[5].value,
+                 "smokePacks": this.state.inputDatas[6].value,
+                 "contraceptives": this.state.inputDatas[7].value,
+                 "iud": this.state.inputDatas[8].value,
+                 "stds": 0,
+                 "stdsNum": 0,
+                 "condyl": 0,
+                 "vCondyl": 0,
+                 "pid": 0,
+                 "hiv": 0,
+                 "cCondyl": 0,
+                 "vpc": 0,
+                 "gHerpes": 0,
+                 "hepB": 0,
+                 "syphilis": 0,
+                 "molCont": 0,
+                 "hpv": 0,
+                 "aids": 0
+                };
+    console.log("MY PROPERTIES: ", query);
+
+    fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict?query=${query}")
+    .then(res => res.json())
+    .then(
+      (result) => {
+        this.setState({
+          isLoaded: true,
+          items: result.items
+        });
+        console.log(result);
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        console.log("YOU GOT YOURSELF AN ERROR");
+        this.setState({
+          isLoaded: true,
+          error
+        });
+      }
+    )
+    console.log("THIS IS WHAT HAPPENS WHEN I SUBMIT.");
+
     if ( this.state.progressPercent >= 100 ) {
       this._resetInputDatas();
       this._calculatePercent();
