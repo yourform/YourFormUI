@@ -19165,8 +19165,6 @@ var Content = React.createClass({displayName: "Content",
   },
   _onSubmitFormHandler: function () {
 
-    console.log("PROPS: ", this.state.inputDatas[0].value);
-
     let query = {"name": this.state.inputDatas[0].value,
                  "age": this.state.inputDatas[1].value,
                  "partners": this.state.inputDatas[2].value,
@@ -19191,9 +19189,14 @@ var Content = React.createClass({displayName: "Content",
                  "hpv": 0,
                  "aids": 0
                 };
-    console.log("MY PROPERTIES: ", query);
 
-    fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict?query=${query}")
+    let myfinalestimate;
+
+    fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
+    {
+      method: "POST",
+      body: query
+    })
     .then(res => res.json())
     .then(
       (result) => {
@@ -19201,20 +19204,17 @@ var Content = React.createClass({displayName: "Content",
           isLoaded: true,
           items: result.items
         });
-        console.log(result);
+        myfinalestimate = result;
       },
-      // Note: it's important to handle errors here
-      // instead of a catch() block so that we don't swallow
-      // exceptions from actual bugs in components.
       (error) => {
-        console.log("YOU GOT YOURSELF AN ERROR");
         this.setState({
           isLoaded: true,
           error
         });
       }
-    )
-    console.log("THIS IS WHAT HAPPENS WHEN I SUBMIT.");
+    );
+
+    console.log("My final estimate: ", myfinalestimate);
 
     if ( this.state.progressPercent >= 100 ) {
       this._resetInputDatas();
