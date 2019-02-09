@@ -103,14 +103,14 @@ var Content = React.createClass({
   _onSubmitFormHandler: function () {
 
     let query = {"name": this.state.inputDatas[0].value,
-                 "age": this.state.inputDatas[1].value,
-                 "partners": this.state.inputDatas[2].value,
-                 "intercourse": this.state.inputDatas[3].value,
-                 "pregnancies": this.state.inputDatas[4].value,
-                 "smokes": this.state.inputDatas[5].value,
-                 "smokePacks": this.state.inputDatas[6].value,
-                 "contraceptives": this.state.inputDatas[7].value,
-                 "iud": this.state.inputDatas[8].value,
+                 "age": parseInt(this.state.inputDatas[1].value),
+                 "partners": parseInt(this.state.inputDatas[2].value),
+                 "intercourse": parseInt(this.state.inputDatas[3].value),
+                 "pregnancies": parseInt(this.state.inputDatas[4].value),
+                 "smokes": parseInt(this.state.inputDatas[5].value),
+                 "smokePacks": parseInt(this.state.inputDatas[6].value),
+                 "contraceptives": parseInt(this.state.inputDatas[7].value),
+                 "iud": parseInt(this.state.inputDatas[8].value),
                  "stds": 0,
                  "stdsNum": 0,
                  "condyl": 0,
@@ -132,7 +132,7 @@ var Content = React.createClass({
     fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
     {
       method: "POST",
-      body: query
+      body: JSON.stringify(query)
     })
     .then(res => res.json())
     .then(
@@ -151,7 +151,7 @@ var Content = React.createClass({
       }
     );
 
-    console.log("My final estimate: ", myfinalestimate);
+    console.log("My final estimate: ", this.state.items);
 
     if ( this.state.progressPercent >= 100 ) {
       this._resetInputDatas();
