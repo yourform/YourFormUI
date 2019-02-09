@@ -4,7 +4,7 @@ var Validator       = require('validatorjs');
 var classSet        = require('./utils/classSet');
 var ProgressElement = require('./components/Progress');
 var FormElement     = require('./components/Form');
-var inputDatas      = require('./datas/inputDatas');
+var inputDatas      = require('./datas/InputDatas');
 
 var Content = React.createClass({
   getInitialState: function () {
@@ -137,6 +137,7 @@ var Content = React.createClass({
     .then(res => res.json())
     .then(
       (result) => {
+        console.log("RESULT: "+result);
         this.setState({
           isLoaded: true,
           items: result.items
