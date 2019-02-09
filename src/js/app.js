@@ -132,6 +132,10 @@ var Content = React.createClass({
     fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
     {
       method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(query)
     })
     .then(res => res.json())
