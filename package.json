@@ -1,11 +1,17 @@
 {
-  "name": "react-progress-form",
-  "description": "react progress form example",
+  "name": "YourForm",
+  "description": "Frontend for dynamic medical survey",
   "version": "0.1.0",
   "scripts": {
     "build": "gulp",
     "start": "node node_modules/.bin/webpack-dev-server --mode development --open --hot"
   },
+  "author": "Roli Khanna <roli.khanna1995@gmail.com>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/yourform/yourformui/issues"
+  },
+  "homepage": "https://github.com/yourform/yourformui#readme",
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^2.1.0",

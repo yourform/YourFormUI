@@ -6,14 +6,34 @@ var ProgressElement = require('./components/Progress');
 var FormElement     = require('./components/Form');
 var inputDatas      = require('./datas/InputDatas');
 
+var Popup = React.createClass( {
+  render() {
+    return (
+      <div className='popup'>
+        <div className='popup_inner'>
+          <h1>{this.props.text}</h1>
+        <button onClick={this.props.closePopup}>Close message</button>
+        </div>
+      </div>
+    );
+  }
+});
+
 var Content = React.createClass({
   getInitialState: function () {
 
     return {
+      showPopup: false,
       inputDatas: [],
-      progressPercent: 0
+      progressPercent: 0,
+      message: "This is interesting, there seems to be a problem with the server."
     }
 
+  },
+  togglePopup() {
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
   },
   componentDidMount: function () {
 
@@ -25,6 +45,7 @@ var Content = React.createClass({
   render: function () {
 
     return (
+
       <div>
         <ProgressElement percent={this.state.progressPercent} />
         <FormElement
@@ -32,6 +53,13 @@ var Content = React.createClass({
           onChangeInputHandler={this._onChangeInputHandler}
           onSubmitFormHandler={this._onSubmitFormHandler}
           percent={this.state.progressPercent} />
+          {this.state.showPopup ?
+          <Popup
+            text={this.state.message}
+            closePopup={this.togglePopup}
+          />
+          : null
+        }
       </div>
     );
 
@@ -127,7 +155,7 @@ var Content = React.createClass({
                  "aids": 0
                 };
 
-    let myfinalestimate;
+    console.log("MY STATE NOW: ", this.state);
 
     fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
     {
@@ -141,12 +169,29 @@ var Content = React.createClass({
     .then(res => res.json())
     .then(
       (result) => {
-        console.log("RESULT: "+result);
+        var finalMessage = "You're at the lowest risk of contracting cervical cancer."; // default message
+        if(parseInt(result) == 0){
+          finalMessage = "You're at the lowest risk of contracting cervical cancer.";
+        }
+        if(parseInt(result) == 1){
+          finalMessage = "You are at low risk of contracting cervical cancer.";
+        }
+        if(parseInt(result) == 2){
+          finalMessage = "You could contract cervical cancer in the next 5 years.";
+        }
+        if(parseInt(result) == 3){
+          finalMessage = "You're at high risk of contracting cervical cancer.";
+        }
+        if(parseInt(result) == 4){
+          finalMessage = "You're at the highest risk of contracting cervical cancer.";
+        }
         this.setState({
           isLoaded: true,
-          items: result.items
+          items: result,
+          showPopup: true,
+          message: finalMessage
         });
-        myfinalestimate = result;
+        console.log("MY STATE FINALLY: ", this.state);
       },
       (error) => {
         this.setState({
@@ -155,8 +200,6 @@ var Content = React.createClass({
         });
       }
     );
-
-    console.log("My final estimate: ", this.state.items);
 
     if ( this.state.progressPercent >= 100 ) {
       this._resetInputDatas();
