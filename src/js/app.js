@@ -4,6 +4,7 @@ var Validator       = require('validatorjs');
 var classSet        = require('./utils/classSet');
 var ProgressElement = require('./components/Progress');
 var FormElement     = require('./components/Form');
+var LandingElement  = require('./components/Landing');
 var inputDatas      = require('./datas/InputDatas');
 
 var Popup = React.createClass( {
@@ -47,6 +48,7 @@ var Content = React.createClass({
     return (
 
       <div>
+        <LandingElement />
         <ProgressElement percent={this.state.progressPercent} />
         <FormElement
           inputs={this.state.inputDatas}

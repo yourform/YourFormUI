@@ -18839,7 +18839,7 @@ var FormElement = React.createClass({displayName: "FormElement",
 module.exports = FormElement;
 
 
-},{"../utils/classSet":155,"./Input":150,"./Submit":152,"react":147}],150:[function(require,module,exports){
+},{"../utils/classSet":156,"./Input":150,"./Submit":153,"react":147}],150:[function(require,module,exports){
 
 var React     = require('react');
 var classSet  = require('../utils/classSet');
@@ -18869,7 +18869,28 @@ var InputElement = React.createClass({displayName: "InputElement",
 module.exports = InputElement;
 
 
-},{"../utils/classSet":155,"react":147}],151:[function(require,module,exports){
+},{"../utils/classSet":156,"react":147}],151:[function(require,module,exports){
+
+var React    = require('react');
+
+var LandingElement = React.createClass({displayName: "LandingElement",
+  render: function(){
+    return(
+      React.createElement("div", null, 
+      React.createElement("button", null, React.createElement("img", {src: "ad.png", alt: "my image", onClick: this._onSubmit})), 
+      React.createElement("button", null, "WHATS UP")
+      )
+    );
+  },
+  _onSubmit: function(){
+    console.log(" I just clicked the button. Good for me.");
+  }
+});
+
+module.exports = LandingElement;
+
+
+},{"react":147}],152:[function(require,module,exports){
 
 var React    = require('react');
 var classSet = require('../utils/classSet');
@@ -18907,7 +18928,7 @@ var ProgressElement = React.createClass({displayName: "ProgressElement",
 module.exports = ProgressElement;
 
 
-},{"../utils/classSet":155,"react":147}],152:[function(require,module,exports){
+},{"../utils/classSet":156,"react":147}],153:[function(require,module,exports){
 
 var React    = require('react');
 var classSet = require('../utils/classSet');
@@ -18931,7 +18952,7 @@ var SubmitElement = React.createClass({displayName: "SubmitElement",
 module.exports = SubmitElement;
 
 
-},{"../utils/classSet":155,"react":147}],153:[function(require,module,exports){
+},{"../utils/classSet":156,"react":147}],154:[function(require,module,exports){
 
 var datas = [
   {
@@ -19060,13 +19081,14 @@ var datas = [
 module.exports = datas;
 
 
-},{}],154:[function(require,module,exports){
+},{}],155:[function(require,module,exports){
 
 var React           = require('react');
 var Validator       = require('validatorjs');
 var classSet        = require('./utils/classSet');
 var ProgressElement = require('./components/Progress');
 var FormElement     = require('./components/Form');
+var LandingElement  = require('./components/Landing');
 var inputDatas      = require('./datas/InputDatas');
 
 var Popup = React.createClass( {displayName: "Popup",
@@ -19110,6 +19132,7 @@ var Content = React.createClass({displayName: "Content",
     return (
 
       React.createElement("div", null, 
+        React.createElement(LandingElement, null), 
         React.createElement(ProgressElement, {percent: this.state.progressPercent}), 
         React.createElement(FormElement, {
           inputs: this.state.inputDatas, 
@@ -19232,7 +19255,7 @@ var Content = React.createClass({displayName: "Content",
     .then(res => res.json())
     .then(
       (result) => {
-        var finalMessage = "You're at the BLA risk of contracting cervical cancer."; // default message
+        var finalMessage = "You're at the lowest risk of contracting cervical cancer."; // default message
         if(parseInt(result) == 0){
           finalMessage = "You're at the lowest risk of contracting cervical cancer.";
         }
@@ -19276,7 +19299,7 @@ var Content = React.createClass({displayName: "Content",
 React.render( React.createElement(Content, {inputDatas: inputDatas}), document.body );
 
 
-},{"./components/Form":149,"./components/Progress":151,"./datas/InputDatas":153,"./utils/classSet":155,"react":147,"validatorjs":148}],155:[function(require,module,exports){
+},{"./components/Form":149,"./components/Landing":151,"./components/Progress":152,"./datas/InputDatas":154,"./utils/classSet":156,"react":147,"validatorjs":148}],156:[function(require,module,exports){
 
 function classSet ( classes ) {
   return typeof classes !== 'object' ?
@@ -19289,4 +19312,4 @@ function classSet ( classes ) {
 module.exports = classSet;
 
 
-},{}]},{},[154])
+},{}]},{},[155])
