@@ -18877,7 +18877,7 @@ var LandingElement = React.createClass({displayName: "LandingElement",
   render: function(){
     return(
       React.createElement("div", null, 
-      React.createElement("button", null, React.createElement("img", {src: "ad.png", alt: "my image", onClick: this._onSubmit})), 
+      React.createElement("button", null, React.createElement("img", {src: "../../resources/ad.png", alt: "my image", onClick: this._onSubmit})), 
       React.createElement("button", null, "WHATS UP")
       )
     );
@@ -19243,7 +19243,7 @@ var Content = React.createClass({displayName: "Content",
 
     console.log("MY STATE NOW: ", this.state);
 
-    fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
+    fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict/cervical-cancer",
     {
       method: "POST",
       mode: "cors",

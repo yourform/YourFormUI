@@ -159,7 +159,7 @@ var Content = React.createClass({
 
     console.log("MY STATE NOW: ", this.state);
 
-    fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
+    fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict/cervical-cancer",
     {
       method: "POST",
       mode: "cors",
