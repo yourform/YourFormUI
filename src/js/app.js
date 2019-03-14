@@ -1,11 +1,14 @@
 
-var React           = require('react');
-var Validator       = require('validatorjs');
-var classSet        = require('./utils/classSet');
-var ProgressElement = require('./components/Progress');
-var FormElement     = require('./components/Form');
-var LandingElement  = require('./components/Landing');
-var inputDatas      = require('./datas/InputDatas');
+var React                 = require('react');
+var Validator             = require('validatorjs');
+var classSet              = require('./utils/classSet');
+var LandingElement        = require('./components/Landing');
+var ProgressElement       = require('./components/Progress');
+var CancerFormElement     = require('./components/cancer/Form');
+var StrokeFormElement     = require('./components/stroke/Form');
+var inputDatas      = require('./datas/CancerInputDatas');      // default
+var inputCancerDatas      = require('./datas/CancerInputDatas');
+var inputStrokeDatas      = require('./datas/StrokeInputDatas');
 
 var Popup = React.createClass( {
   render() {
@@ -25,6 +28,7 @@ var Content = React.createClass({
 
     return {
       showPopup: false,
+      screenShift: false,
       inputDatas: [],
       progressPercent: 0,
       message: "This is interesting, there seems to be a problem with the server."
@@ -38,30 +42,41 @@ var Content = React.createClass({
   },
   componentDidMount: function () {
 
-    var inputDatas = this.props.inputDatas;
-    this.setState( { inputDatas: inputDatas } );
+    var inputCancerDatas = this.props.inputCancerDatas;
+    var inputStrokeDatas = this.props.inputStrokeDatas;
+    this.setState( { inputDatas: inputCancerDatas,  //default
+                     inputCancerDatas: inputCancerDatas,
+                     inputStrokeDatas: inputStrokeDatas,
+                     selectedScreen: true,  // true: cancer, false: stroke
+                     screenShift: false} );
     this._initialInputVerification();
-
   },
   render: function () {
 
     return (
 
       <div>
-        <LandingElement />
+      {
+        this.state.screenShift ?
+        <div>
         <ProgressElement percent={this.state.progressPercent} />
         <FormElement
-          inputs={this.state.inputDatas}
+
+          inputs={this.state.selectedScreen ? this.state.inputCancerDatas : this.state.inputStrokeDatas}
+
           onChangeInputHandler={this._onChangeInputHandler}
           onSubmitFormHandler={this._onSubmitFormHandler}
           percent={this.state.progressPercent} />
           {this.state.showPopup ?
           <Popup
             text={this.state.message}
-            closePopup={this.togglePopup}
-          />
-          : null
-        }
+            closePopup={this.togglePopup} />
+          : null }
+          </div>
+        : <div>
+          <LandingElement screenShift={this.state.screenShift} />
+          </div>
+      }
       </div>
     );
 
@@ -132,76 +147,155 @@ var Content = React.createClass({
   },
   _onSubmitFormHandler: function () {
 
-    let query = {"name": this.state.inputDatas[0].value,
-                 "age": parseInt(this.state.inputDatas[1].value),
-                 "partners": parseInt(this.state.inputDatas[2].value),
-                 "intercourse": parseInt(this.state.inputDatas[3].value),
-                 "pregnancies": parseInt(this.state.inputDatas[4].value),
-                 "smokes": parseInt(this.state.inputDatas[5].value),
-                 "smokePacks": parseInt(this.state.inputDatas[6].value),
-                 "contraceptives": parseInt(this.state.inputDatas[7].value),
-                 "iud": parseInt(this.state.inputDatas[8].value),
-                 "stds": 0,
-                 "stdsNum": 0,
-                 "condyl": 0,
-                 "vCondyl": 0,
-                 "pid": 0,
-                 "hiv": 0,
-                 "cCondyl": 0,
-                 "vpc": 0,
-                 "gHerpes": 0,
-                 "hepB": 0,
-                 "syphilis": 0,
-                 "molCont": 0,
-                 "hpv": 0,
-                 "aids": 0
-                };
+    if(this.state.selectedScreen == true){    // selected screen is cancer
 
-    console.log("MY STATE NOW: ", this.state);
+      let query = {"name": this.state.inputDatas[0].value,
+                   "age": parseInt(this.state.inputDatas[1].value),
+                   "partners": parseInt(this.state.inputDatas[2].value),
+                   "intercourse": parseInt(this.state.inputDatas[3].value),
+                   "pregnancies": parseInt(this.state.inputDatas[4].value),
+                   "smokes": parseInt(this.state.inputDatas[5].value),
+                   "smokePacks": parseInt(this.state.inputDatas[6].value),
+                   "contraceptives": parseInt(this.state.inputDatas[7].value),
+                   "iud": parseInt(this.state.inputDatas[8].value),
+                   "stds": 0,
+                   "stdsNum": 0,
+                   "condyl": 0,
+                   "vCondyl": 0,
+                   "pid": 0,
+                   "hiv": 0,
+                   "cCondyl": 0,
+                   "vpc": 0,
+                   "gHerpes": 0,
+                   "hepB": 0,
+                   "syphilis": 0,
+                   "molCont": 0,
+                   "hpv": 0,
+                   "aids": 0
+                  };
 
-    fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
-    {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(query)
-    })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        var finalMessage = "You're at the lowest risk of contracting cervical cancer."; // default message
-        if(parseInt(result) == 0){
-          finalMessage = "You're at the lowest risk of contracting cervical cancer.";
+      console.log("MY STATE NOW: ", this.state);
+
+      fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(query)
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          var finalMessage = "You're at the lowest risk of contracting cervical cancer."; // default message
+          if(parseInt(result) == 0){
+            finalMessage = "You're at the lowest risk of contracting cervical cancer.";
+          }
+          if(parseInt(result) == 1){
+            finalMessage = "You are at low risk of contracting cervical cancer.";
+          }
+          if(parseInt(result) == 2){
+            finalMessage = "You could contract cervical cancer in the next 5 years.";
+          }
+          if(parseInt(result) == 3){
+            finalMessage = "You're at high risk of contracting cervical cancer.";
+          }
+          if(parseInt(result) == 4){
+            finalMessage = "You're at the highest risk of contracting cervical cancer.";
+          }
+          this.setState({
+            isLoaded: true,
+            items: result,
+            showPopup: true,
+            message: finalMessage
+          });
+          console.log("MY STATE FINALLY: ", this.state);
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
         }
-        if(parseInt(result) == 1){
-          finalMessage = "You are at low risk of contracting cervical cancer.";
+      );
+
+    }
+
+    else{   // selected screen is stroke
+
+      let query = {"name": this.state.inputDatas[0].value,
+                   "age": parseInt(this.state.inputDatas[1].value),
+                   "partners": parseInt(this.state.inputDatas[2].value),
+                   "intercourse": parseInt(this.state.inputDatas[3].value),
+                   "pregnancies": parseInt(this.state.inputDatas[4].value),
+                   "smokes": parseInt(this.state.inputDatas[5].value),
+                   "smokePacks": parseInt(this.state.inputDatas[6].value),
+                   "contraceptives": parseInt(this.state.inputDatas[7].value),
+                   "iud": parseInt(this.state.inputDatas[8].value),
+                   "stds": 0,
+                   "stdsNum": 0,
+                   "condyl": 0,
+                   "vCondyl": 0,
+                   "pid": 0,
+                   "hiv": 0,
+                   "cCondyl": 0,
+                   "vpc": 0,
+                   "gHerpes": 0,
+                   "hepB": 0,
+                   "syphilis": 0,
+                   "molCont": 0,
+                   "hpv": 0,
+                   "aids": 0
+                  };
+
+      console.log("MY STATE NOW: ", this.state);
+
+      fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(query)
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          var finalMessage = "You're at the lowest risk of contracting cervical cancer."; // default message
+          if(parseInt(result) == 0){
+            finalMessage = "You're at the lowest risk of contracting cervical cancer.";
+          }
+          if(parseInt(result) == 1){
+            finalMessage = "You are at low risk of contracting cervical cancer.";
+          }
+          if(parseInt(result) == 2){
+            finalMessage = "You could contract cervical cancer in the next 5 years.";
+          }
+          if(parseInt(result) == 3){
+            finalMessage = "You're at high risk of contracting cervical cancer.";
+          }
+          if(parseInt(result) == 4){
+            finalMessage = "You're at the highest risk of contracting cervical cancer.";
+          }
+          this.setState({
+            isLoaded: true,
+            items: result,
+            showPopup: true,
+            message: finalMessage
+          });
+          console.log("MY STATE FINALLY: ", this.state);
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
         }
-        if(parseInt(result) == 2){
-          finalMessage = "You could contract cervical cancer in the next 5 years.";
-        }
-        if(parseInt(result) == 3){
-          finalMessage = "You're at high risk of contracting cervical cancer.";
-        }
-        if(parseInt(result) == 4){
-          finalMessage = "You're at the highest risk of contracting cervical cancer.";
-        }
-        this.setState({
-          isLoaded: true,
-          items: result,
-          showPopup: true,
-          message: finalMessage
-        });
-        console.log("MY STATE FINALLY: ", this.state);
-      },
-      (error) => {
-        this.setState({
-          isLoaded: true,
-          error
-        });
-      }
-    );
+      );
+
+    }
 
     if ( this.state.progressPercent >= 100 ) {
       this._resetInputDatas();

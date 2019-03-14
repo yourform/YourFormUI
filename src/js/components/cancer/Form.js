@@ -1,14 +1,14 @@
 
 var React         = require('react');
-var classSet      = require('../utils/classSet');
-var InputElement  = require('./Input');
-var SubmitElement = require('./Submit');
+var classSet      = require('../../utils/classSet');
+var CancerInputElement  = require('./Input');
+var SubmitElement = require('../Submit');
 
-var FormElement = React.createClass({
+var CancerFormElement = React.createClass({
   render: function() {
     var props = this.props;
     var inputNodes = props.inputs.map( function ( item, index  ) {
-      return <InputElement
+      return <CancerInputElement
                 key={index}
                 index={index}
                 item={item}
@@ -27,4 +27,4 @@ var FormElement = React.createClass({
   }
 });
 
-module.exports = FormElement;
+module.exports = CancerFormElement;

@@ -1,8 +1,8 @@
 
 var React     = require('react');
-var classSet  = require('../utils/classSet');
+var classSet  = require('../../utils/classSet');
 
-var InputElement = React.createClass({
+var StrokeInputElement = React.createClass({
   render: function() {
     var item = this.props.item;
     var classes = classSet({
@@ -24,4 +24,4 @@ var InputElement = React.createClass({
   }
 });
 
-module.exports = InputElement;
+module.exports = StrokeInputElement;

@@ -18808,89 +18808,35 @@ if (typeof module !== 'undefined' && module.exports) {
 })();
 },{}],149:[function(require,module,exports){
 
-var React         = require('react');
-var classSet      = require('../utils/classSet');
-var InputElement  = require('./Input');
-var SubmitElement = require('./Submit');
-
-var FormElement = React.createClass({displayName: "FormElement",
-  render: function() {
-    var props = this.props;
-    var inputNodes = props.inputs.map( function ( item, index  ) {
-      return React.createElement(InputElement, {
-                key: index, 
-                index: index, 
-                item: item, 
-                onChangeInputHandler: props.onChangeInputHandler});
-    });
-    return (
-      React.createElement("form", {className: "form clearfix", onSubmit: this._onSubmit}, 
-        inputNodes, 
-        React.createElement(SubmitElement, {percent: this.props.percent})
-      )
-    );
-  },
-  _onSubmit: function (e) {
-    e.preventDefault();
-    this.props.onSubmitFormHandler();
-  }
-});
-
-module.exports = FormElement;
-
-
-},{"../utils/classSet":156,"./Input":150,"./Submit":153,"react":147}],150:[function(require,module,exports){
-
-var React     = require('react');
-var classSet  = require('../utils/classSet');
-
-var InputElement = React.createClass({displayName: "InputElement",
-  render: function() {
-    var item = this.props.item;
-    var classes = classSet({
-      "form--group": true,
-      "has--error": item.hasError && !item.pristine
-    });
-    return (
-      React.createElement("div", {className: classes}, 
-        React.createElement("label", {htmlFor: item.id}, item.label), 
-        React.createElement("input", {type: "text", className: "form--control", id: item.id, value: item.value, onChange: this._onChange}), 
-        React.createElement("span", {className: "form--focus"}), 
-        React.createElement("span", {className: "form--error"}, item.errorMessage)
-      )
-    );
-  },
-  _onChange: function(e) {
-    var value = e.target.value;
-    this.props.onChangeInputHandler( this.props.index, value );
-  }
-});
-
-module.exports = InputElement;
-
-
-},{"../utils/classSet":156,"react":147}],151:[function(require,module,exports){
-
 var React    = require('react');
 
 var LandingElement = React.createClass({displayName: "LandingElement",
   render: function(){
     return(
-      React.createElement("div", null, 
-      React.createElement("button", null, React.createElement("img", {src: "ad.png", alt: "my image", onClick: this._onSubmit})), 
-      React.createElement("button", null, "WHATS UP")
+      React.createElement("div", {style: {display: "flex", align: "center"}}, 
+      React.createElement("button", {style: {margin:"20px"}}, 
+        React.createElement("img", {src: "./resources/ad1.png", alt: "my image", onClick: this._onSubmit})
+        ), 
+      React.createElement("button", {style: {margin:"30px"}}, 
+        React.createElement("img", {src: "./resources/ad2.png", alt: "my image", onClick: this._onSubmit})
+        )
       )
     );
   },
   _onSubmit: function(){
+    this.setState({
+      screenShift: !this.props.screenShift
+    });
+    // Shifting screen
     console.log(" I just clicked the button. Good for me.");
+    console.log("Props: ", this.props);
   }
 });
 
 module.exports = LandingElement;
 
 
-},{"react":147}],152:[function(require,module,exports){
+},{"react":147}],150:[function(require,module,exports){
 
 var React    = require('react');
 var classSet = require('../utils/classSet');
@@ -18928,7 +18874,7 @@ var ProgressElement = React.createClass({displayName: "ProgressElement",
 module.exports = ProgressElement;
 
 
-},{"../utils/classSet":156,"react":147}],153:[function(require,module,exports){
+},{"../utils/classSet":159,"react":147}],151:[function(require,module,exports){
 
 var React    = require('react');
 var classSet = require('../utils/classSet');
@@ -18952,7 +18898,133 @@ var SubmitElement = React.createClass({displayName: "SubmitElement",
 module.exports = SubmitElement;
 
 
-},{"../utils/classSet":156,"react":147}],154:[function(require,module,exports){
+},{"../utils/classSet":159,"react":147}],152:[function(require,module,exports){
+
+var React         = require('react');
+var classSet      = require('../../utils/classSet');
+var CancerInputElement  = require('./Input');
+var SubmitElement = require('../Submit');
+
+var CancerFormElement = React.createClass({displayName: "CancerFormElement",
+  render: function() {
+    var props = this.props;
+    var inputNodes = props.inputs.map( function ( item, index  ) {
+      return React.createElement(CancerInputElement, {
+                key: index, 
+                index: index, 
+                item: item, 
+                onChangeInputHandler: props.onChangeInputHandler});
+    });
+    return (
+      React.createElement("form", {className: "form clearfix", onSubmit: this._onSubmit}, 
+        inputNodes, 
+        React.createElement(SubmitElement, {percent: this.props.percent})
+      )
+    );
+  },
+  _onSubmit: function (e) {
+    e.preventDefault();
+    this.props.onSubmitFormHandler();
+  }
+});
+
+module.exports = CancerFormElement;
+
+
+},{"../../utils/classSet":159,"../Submit":151,"./Input":153,"react":147}],153:[function(require,module,exports){
+
+var React     = require('react');
+var classSet  = require('../../utils/classSet');
+
+var CancerInputElement = React.createClass({displayName: "CancerInputElement",
+  render: function() {
+    var item = this.props.item;
+    var classes = classSet({
+      "form--group": true,
+      "has--error": item.hasError && !item.pristine
+    });
+    return (
+      React.createElement("div", {className: classes}, 
+        React.createElement("label", {htmlFor: item.id}, item.label), 
+        React.createElement("input", {type: "text", className: "form--control", id: item.id, value: item.value, onChange: this._onChange}), 
+        React.createElement("span", {className: "form--focus"}), 
+        React.createElement("span", {className: "form--error"}, item.errorMessage)
+      )
+    );
+  },
+  _onChange: function(e) {
+    var value = e.target.value;
+    this.props.onChangeInputHandler( this.props.index, value );
+  }
+});
+
+module.exports = CancerInputElement;
+
+
+},{"../../utils/classSet":159,"react":147}],154:[function(require,module,exports){
+
+var React         = require('react');
+var classSet      = require('../../utils/classSet');
+var StrokeInputElement  = require('./Input');
+var SubmitElement = require('../Submit');
+
+var StrokeFormElement = React.createClass({displayName: "StrokeFormElement",
+  render: function() {
+    var props = this.props;
+    var inputNodes = props.inputs.map( function ( item, index  ) {
+      return React.createElement(StrokeInputElement, {
+                key: index, 
+                index: index, 
+                item: item, 
+                onChangeInputHandler: props.onChangeInputHandler});
+    });
+    return (
+      React.createElement("form", {className: "form clearfix", onSubmit: this._onSubmit}, 
+        inputNodes, 
+        React.createElement(SubmitElement, {percent: this.props.percent})
+      )
+    );
+  },
+  _onSubmit: function (e) {
+    e.preventDefault();
+    this.props.onSubmitFormHandler();
+  }
+});
+
+module.exports = StrokeFormElement;
+
+
+},{"../../utils/classSet":159,"../Submit":151,"./Input":155,"react":147}],155:[function(require,module,exports){
+
+var React     = require('react');
+var classSet  = require('../../utils/classSet');
+
+var StrokeInputElement = React.createClass({displayName: "StrokeInputElement",
+  render: function() {
+    var item = this.props.item;
+    var classes = classSet({
+      "form--group": true,
+      "has--error": item.hasError && !item.pristine
+    });
+    return (
+      React.createElement("div", {className: classes}, 
+        React.createElement("label", {htmlFor: item.id}, item.label), 
+        React.createElement("input", {type: "text", className: "form--control", id: item.id, value: item.value, onChange: this._onChange}), 
+        React.createElement("span", {className: "form--focus"}), 
+        React.createElement("span", {className: "form--error"}, item.errorMessage)
+      )
+    );
+  },
+  _onChange: function(e) {
+    var value = e.target.value;
+    this.props.onChangeInputHandler( this.props.index, value );
+  }
+});
+
+module.exports = StrokeInputElement;
+
+
+},{"../../utils/classSet":159,"react":147}],156:[function(require,module,exports){
 
 var datas = [
   {
@@ -19081,15 +19153,147 @@ var datas = [
 module.exports = datas;
 
 
-},{}],155:[function(require,module,exports){
+},{}],157:[function(require,module,exports){
 
-var React           = require('react');
-var Validator       = require('validatorjs');
-var classSet        = require('./utils/classSet');
-var ProgressElement = require('./components/Progress');
-var FormElement     = require('./components/Form');
-var LandingElement  = require('./components/Landing');
-var inputDatas      = require('./datas/InputDatas');
+var datas = [
+  {
+    id: "name",
+    label: "Name",
+    value: "",
+    validation: {
+      rules: { name: [ "required", "regex:/^([a-zA-z]{3,10} [a-zA-z ]{3,})$/" ] },
+      messages: { "required.name": 'Enter your first and last name', 'regex.name': 'First name and Last Name' }
+    },
+    pristine: true,
+    hasError: false,
+    errorMessage: ''
+  },
+  {
+    id: "age",
+    label: "Age",
+    value: "",
+    validation: {
+      rules: { age: [ "required", "integer" ] },
+      messages: { "required.age": 'Enter your age', 'integer.age': 'Please enter a number' }
+    },
+    pristine: true,
+    hasError: false,
+    errorMessage: ''
+  },
+  {
+    id: "numberSexual",
+    label: "Number of Sexual Partners",
+    value: "",
+    validation: {
+      rules: { numberSexual: [ "required", "integer" ] },
+      messages: { "required.numberSexual": 'How many sexual partners have you had uptil now?', 'numberSexual.numberSexual': 'Please enter a valid number' }
+    },
+    pristine: true,
+    hasError: false,
+    errorMessage: ''
+  },
+  {
+    id: "firstSex",
+    label: "Age during first Sexual Intercourse",
+    value: "",
+    validation: {
+      rules: { firstSex: [ "required", "integer" ] },
+      // rules: { lang: [ "required", "regex:/^javascript$/" ] },
+      messages: { "required.firstSex": 'Your age during first sexual intercourse', 'integer.firstSex': 'Please enter a valid number' }
+    },
+    pristine: true,
+    hasError: false,
+    errorMessage: ''
+  },
+  {
+    id: "numberPregnancies",
+    label: "Number of Pregnancies",
+    value: "",
+    validation: {
+      rules: { numberPregnancies: [ "required", "integer" ] },
+      messages: { "required.numberPregnancies": 'How many pregnancies have you undergone (successful and unsuccessful) uptil now?', 'integer.numberPregnancies': 'Please enter a valid number' }
+    },
+    pristine: true,
+    hasError: false,
+    errorMessage: ''
+  },
+  {
+    id: "smokeYears",
+    label: "How many years have you been smoking (if at all) for?",
+    value: "",
+    validation: {
+      rules: { smokeYears: [ "required", "integer" ] },
+      messages: { "required.smokeYears": 'How many years have you been smoking (if at all) from?', 'integer.smokeYears': 'Please enter a valid number' }
+    },
+    pristine: true,
+    hasError: false,
+    errorMessage: ''
+  },
+  {
+    id: "smokePacks",
+    label: "Number of packs you smoke per year?",
+    value: "",
+    validation: {
+      rules: { smokePacks: [ "required", "integer" ] },
+      messages: { "required.numberPregnancies": 'How many packs of cigarettes in a year?', 'integer.smokePacks': 'Please enter a valid number' }
+    },
+    pristine: true,
+    hasError: false,
+    errorMessage: ''
+  },
+  {
+    id: "contraceptiveYears",
+    label: "Number of years you've been consuming contraceptives (if at all)?",
+    value: "",
+    validation: {
+      rules: { contraceptiveYears: [ "required", "integer" ] },
+      messages: { "required.contraceptiveYears": 'How many years have you been consuming contraceptives from?', 'integer.contraceptiveYears': 'Please enter a valid number' }
+    },
+    pristine: true,
+    hasError: false,
+    errorMessage: ''
+  },
+  {
+    id: "iud",
+    label: "Since how many years do you have an IUD (if at all)?",
+    value: "",
+    validation: {
+      rules: { iud: [ "required", "integer" ] },
+      messages: { "required.iud": 'Do you have an IUD?', 'integer.iud': 'Please enter a number' }
+    },
+    pristine: true,
+    hasError: false,
+    errorMessage: ''
+  },
+  {
+    id: "std",
+    label: "Have you been diagnosed with any STDs?",
+    value: "",
+    validation: {
+      rules: { std: [ "required", "regex:/Yes|No|yes|no/" ] },
+      messages: { "required.std": 'Have you been diagnosed with any STD?', 'regex.std': 'Please enter Yes/No' }
+    },
+    pristine: true,
+    hasError: false,
+    errorMessage: ''
+  }
+];
+
+module.exports = datas;
+
+
+},{}],158:[function(require,module,exports){
+
+var React                 = require('react');
+var Validator             = require('validatorjs');
+var classSet              = require('./utils/classSet');
+var LandingElement        = require('./components/Landing');
+var ProgressElement       = require('./components/Progress');
+var CancerFormElement     = require('./components/cancer/Form');
+var StrokeFormElement     = require('./components/stroke/Form');
+var inputDatas      = require('./datas/CancerInputDatas');      // default
+var inputCancerDatas      = require('./datas/CancerInputDatas');
+var inputStrokeDatas      = require('./datas/StrokeInputDatas');
 
 var Popup = React.createClass( {displayName: "Popup",
   render() {
@@ -19109,6 +19313,7 @@ var Content = React.createClass({displayName: "Content",
 
     return {
       showPopup: false,
+      screenShift: false,
       inputDatas: [],
       progressPercent: 0,
       message: "This is interesting, there seems to be a problem with the server."
@@ -19122,30 +19327,41 @@ var Content = React.createClass({displayName: "Content",
   },
   componentDidMount: function () {
 
-    var inputDatas = this.props.inputDatas;
-    this.setState( { inputDatas: inputDatas } );
+    var inputCancerDatas = this.props.inputCancerDatas;
+    var inputStrokeDatas = this.props.inputStrokeDatas;
+    this.setState( { inputDatas: inputCancerDatas,  //default
+                     inputCancerDatas: inputCancerDatas,
+                     inputStrokeDatas: inputStrokeDatas,
+                     selectedScreen: true,  // true: cancer, false: stroke
+                     screenShift: false} );
     this._initialInputVerification();
-
   },
   render: function () {
 
     return (
 
       React.createElement("div", null, 
-        React.createElement(LandingElement, null), 
+      
+        this.state.screenShift ?
+        React.createElement("div", null, 
         React.createElement(ProgressElement, {percent: this.state.progressPercent}), 
         React.createElement(FormElement, {
-          inputs: this.state.inputDatas, 
+
+          inputs: this.state.selectedScreen ? this.state.inputCancerDatas : this.state.inputStrokeDatas, 
+
           onChangeInputHandler: this._onChangeInputHandler, 
           onSubmitFormHandler: this._onSubmitFormHandler, 
           percent: this.state.progressPercent}), 
           this.state.showPopup ?
           React.createElement(Popup, {
             text: this.state.message, 
-            closePopup: this.togglePopup}
-          )
+            closePopup: this.togglePopup})
           : null
-        
+          )
+        : React.createElement("div", null, 
+          React.createElement(LandingElement, {screenShift: this.state.screenShift})
+          )
+      
       )
     );
 
@@ -19216,76 +19432,155 @@ var Content = React.createClass({displayName: "Content",
   },
   _onSubmitFormHandler: function () {
 
-    let query = {"name": this.state.inputDatas[0].value,
-                 "age": parseInt(this.state.inputDatas[1].value),
-                 "partners": parseInt(this.state.inputDatas[2].value),
-                 "intercourse": parseInt(this.state.inputDatas[3].value),
-                 "pregnancies": parseInt(this.state.inputDatas[4].value),
-                 "smokes": parseInt(this.state.inputDatas[5].value),
-                 "smokePacks": parseInt(this.state.inputDatas[6].value),
-                 "contraceptives": parseInt(this.state.inputDatas[7].value),
-                 "iud": parseInt(this.state.inputDatas[8].value),
-                 "stds": 0,
-                 "stdsNum": 0,
-                 "condyl": 0,
-                 "vCondyl": 0,
-                 "pid": 0,
-                 "hiv": 0,
-                 "cCondyl": 0,
-                 "vpc": 0,
-                 "gHerpes": 0,
-                 "hepB": 0,
-                 "syphilis": 0,
-                 "molCont": 0,
-                 "hpv": 0,
-                 "aids": 0
-                };
+    if(this.state.selectedScreen == true){    // selected screen is cancer
 
-    console.log("MY STATE NOW: ", this.state);
+      let query = {"name": this.state.inputDatas[0].value,
+                   "age": parseInt(this.state.inputDatas[1].value),
+                   "partners": parseInt(this.state.inputDatas[2].value),
+                   "intercourse": parseInt(this.state.inputDatas[3].value),
+                   "pregnancies": parseInt(this.state.inputDatas[4].value),
+                   "smokes": parseInt(this.state.inputDatas[5].value),
+                   "smokePacks": parseInt(this.state.inputDatas[6].value),
+                   "contraceptives": parseInt(this.state.inputDatas[7].value),
+                   "iud": parseInt(this.state.inputDatas[8].value),
+                   "stds": 0,
+                   "stdsNum": 0,
+                   "condyl": 0,
+                   "vCondyl": 0,
+                   "pid": 0,
+                   "hiv": 0,
+                   "cCondyl": 0,
+                   "vpc": 0,
+                   "gHerpes": 0,
+                   "hepB": 0,
+                   "syphilis": 0,
+                   "molCont": 0,
+                   "hpv": 0,
+                   "aids": 0
+                  };
 
-    fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
-    {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(query)
-    })
-    .then(res => res.json())
-    .then(
-      (result) => {
-        var finalMessage = "You're at the lowest risk of contracting cervical cancer."; // default message
-        if(parseInt(result) == 0){
-          finalMessage = "You're at the lowest risk of contracting cervical cancer.";
+      console.log("MY STATE NOW: ", this.state);
+
+      fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(query)
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          var finalMessage = "You're at the lowest risk of contracting cervical cancer."; // default message
+          if(parseInt(result) == 0){
+            finalMessage = "You're at the lowest risk of contracting cervical cancer.";
+          }
+          if(parseInt(result) == 1){
+            finalMessage = "You are at low risk of contracting cervical cancer.";
+          }
+          if(parseInt(result) == 2){
+            finalMessage = "You could contract cervical cancer in the next 5 years.";
+          }
+          if(parseInt(result) == 3){
+            finalMessage = "You're at high risk of contracting cervical cancer.";
+          }
+          if(parseInt(result) == 4){
+            finalMessage = "You're at the highest risk of contracting cervical cancer.";
+          }
+          this.setState({
+            isLoaded: true,
+            items: result,
+            showPopup: true,
+            message: finalMessage
+          });
+          console.log("MY STATE FINALLY: ", this.state);
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
         }
-        if(parseInt(result) == 1){
-          finalMessage = "You are at low risk of contracting cervical cancer.";
+      );
+
+    }
+
+    else{   // selected screen is stroke
+
+      let query = {"name": this.state.inputDatas[0].value,
+                   "age": parseInt(this.state.inputDatas[1].value),
+                   "partners": parseInt(this.state.inputDatas[2].value),
+                   "intercourse": parseInt(this.state.inputDatas[3].value),
+                   "pregnancies": parseInt(this.state.inputDatas[4].value),
+                   "smokes": parseInt(this.state.inputDatas[5].value),
+                   "smokePacks": parseInt(this.state.inputDatas[6].value),
+                   "contraceptives": parseInt(this.state.inputDatas[7].value),
+                   "iud": parseInt(this.state.inputDatas[8].value),
+                   "stds": 0,
+                   "stdsNum": 0,
+                   "condyl": 0,
+                   "vCondyl": 0,
+                   "pid": 0,
+                   "hiv": 0,
+                   "cCondyl": 0,
+                   "vpc": 0,
+                   "gHerpes": 0,
+                   "hepB": 0,
+                   "syphilis": 0,
+                   "molCont": 0,
+                   "hpv": 0,
+                   "aids": 0
+                  };
+
+      console.log("MY STATE NOW: ", this.state);
+
+      fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
+      {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(query)
+      })
+      .then(res => res.json())
+      .then(
+        (result) => {
+          var finalMessage = "You're at the lowest risk of contracting cervical cancer."; // default message
+          if(parseInt(result) == 0){
+            finalMessage = "You're at the lowest risk of contracting cervical cancer.";
+          }
+          if(parseInt(result) == 1){
+            finalMessage = "You are at low risk of contracting cervical cancer.";
+          }
+          if(parseInt(result) == 2){
+            finalMessage = "You could contract cervical cancer in the next 5 years.";
+          }
+          if(parseInt(result) == 3){
+            finalMessage = "You're at high risk of contracting cervical cancer.";
+          }
+          if(parseInt(result) == 4){
+            finalMessage = "You're at the highest risk of contracting cervical cancer.";
+          }
+          this.setState({
+            isLoaded: true,
+            items: result,
+            showPopup: true,
+            message: finalMessage
+          });
+          console.log("MY STATE FINALLY: ", this.state);
+        },
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
         }
-        if(parseInt(result) == 2){
-          finalMessage = "You could contract cervical cancer in the next 5 years.";
-        }
-        if(parseInt(result) == 3){
-          finalMessage = "You're at high risk of contracting cervical cancer.";
-        }
-        if(parseInt(result) == 4){
-          finalMessage = "You're at the highest risk of contracting cervical cancer.";
-        }
-        this.setState({
-          isLoaded: true,
-          items: result,
-          showPopup: true,
-          message: finalMessage
-        });
-        console.log("MY STATE FINALLY: ", this.state);
-      },
-      (error) => {
-        this.setState({
-          isLoaded: true,
-          error
-        });
-      }
-    );
+      );
+
+    }
 
     if ( this.state.progressPercent >= 100 ) {
       this._resetInputDatas();
@@ -19299,7 +19594,7 @@ var Content = React.createClass({displayName: "Content",
 React.render( React.createElement(Content, {inputDatas: inputDatas}), document.body );
 
 
-},{"./components/Form":149,"./components/Landing":151,"./components/Progress":152,"./datas/InputDatas":154,"./utils/classSet":156,"react":147,"validatorjs":148}],156:[function(require,module,exports){
+},{"./components/Landing":149,"./components/Progress":150,"./components/cancer/Form":152,"./components/stroke/Form":154,"./datas/CancerInputDatas":156,"./datas/StrokeInputDatas":157,"./utils/classSet":159,"react":147,"validatorjs":148}],159:[function(require,module,exports){
 
 function classSet ( classes ) {
   return typeof classes !== 'object' ?
@@ -19312,4 +19607,4 @@ function classSet ( classes ) {
 module.exports = classSet;
 
 
-},{}]},{},[155])
+},{}]},{},[158])
