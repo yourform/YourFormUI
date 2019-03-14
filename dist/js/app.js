@@ -18968,6 +18968,7 @@ var classSet      = require('../../utils/classSet');
 var StrokeInputElement  = require('./Input');
 var SubmitElement = require('../Submit');
 
+<<<<<<< HEAD
 var StrokeFormElement = React.createClass({displayName: "StrokeFormElement",
   render: function() {
     var props = this.props;
@@ -18982,6 +18983,14 @@ var StrokeFormElement = React.createClass({displayName: "StrokeFormElement",
       React.createElement("form", {className: "form clearfix", onSubmit: this._onSubmit}, 
         inputNodes, 
         React.createElement(SubmitElement, {percent: this.props.percent})
+=======
+var LandingElement = React.createClass({displayName: "LandingElement",
+  render: function(){
+    return(
+      React.createElement("div", null, 
+      React.createElement("button", null, React.createElement("img", {src: "../../resources/ad.png", alt: "my image", onClick: this._onSubmit})), 
+      React.createElement("button", null, "WHATS UP")
+>>>>>>> 41b8577608444ee6f069499db09d1d8909ab3d7a
       )
     );
   },
@@ -19432,6 +19441,7 @@ var Content = React.createClass({displayName: "Content",
   },
   _onSubmitFormHandler: function () {
 
+<<<<<<< HEAD
     if(this.state.selectedScreen == true){    // selected screen is cancer
 
       let query = {"name": this.state.inputDatas[0].value,
@@ -19502,6 +19512,59 @@ var Content = React.createClass({displayName: "Content",
             isLoaded: true,
             error
           });
+=======
+    let query = {"name": this.state.inputDatas[0].value,
+                 "age": parseInt(this.state.inputDatas[1].value),
+                 "partners": parseInt(this.state.inputDatas[2].value),
+                 "intercourse": parseInt(this.state.inputDatas[3].value),
+                 "pregnancies": parseInt(this.state.inputDatas[4].value),
+                 "smokes": parseInt(this.state.inputDatas[5].value),
+                 "smokePacks": parseInt(this.state.inputDatas[6].value),
+                 "contraceptives": parseInt(this.state.inputDatas[7].value),
+                 "iud": parseInt(this.state.inputDatas[8].value),
+                 "stds": 0,
+                 "stdsNum": 0,
+                 "condyl": 0,
+                 "vCondyl": 0,
+                 "pid": 0,
+                 "hiv": 0,
+                 "cCondyl": 0,
+                 "vpc": 0,
+                 "gHerpes": 0,
+                 "hepB": 0,
+                 "syphilis": 0,
+                 "molCont": 0,
+                 "hpv": 0,
+                 "aids": 0
+                };
+
+    console.log("MY STATE NOW: ", this.state);
+
+    fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict/cervical-cancer",
+    {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(query)
+    })
+    .then(res => res.json())
+    .then(
+      (result) => {
+        var finalMessage = "You're at the lowest risk of contracting cervical cancer."; // default message
+        if(parseInt(result) == 0){
+          finalMessage = "You're at the lowest risk of contracting cervical cancer.";
+        }
+        if(parseInt(result) == 1){
+          finalMessage = "You are at low risk of contracting cervical cancer.";
+        }
+        if(parseInt(result) == 2){
+          finalMessage = "You could contract cervical cancer in the next 5 years.";
+        }
+        if(parseInt(result) == 3){
+          finalMessage = "You're at high risk of contracting cervical cancer.";
+>>>>>>> 41b8577608444ee6f069499db09d1d8909ab3d7a
         }
       );
 
