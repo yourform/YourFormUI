@@ -6,7 +6,7 @@ var LandingElement        = require('./components/Landing');
 var ProgressElement       = require('./components/Progress');
 var CancerFormElement     = require('./components/cancer/Form');
 var StrokeFormElement     = require('./components/stroke/Form');
-var inputDatas      = require('./datas/CancerInputDatas');      // default
+var inputDatas            = require('./datas/CancerInputDatas');      // default
 var inputCancerDatas      = require('./datas/CancerInputDatas');
 var inputStrokeDatas      = require('./datas/StrokeInputDatas');
 
@@ -40,10 +40,16 @@ var Content = React.createClass({
       showPopup: !this.state.showPopup
     });
   },
+  _onSubmit: function(selectedScreen){
+    this.setState({
+      screenShift: !this.state.screenShift,
+      selectedScreen: selectedScreen
+    });
+  },
+  componentWillMount: function(){
+    this._onSubmit = this._onSubmit.bind(this, true);
+  },
   componentDidMount: function () {
-
-    var inputCancerDatas = this.props.inputCancerDatas;
-    var inputStrokeDatas = this.props.inputStrokeDatas;
     this.setState( { inputDatas: inputCancerDatas,  //default
                      inputCancerDatas: inputCancerDatas,
                      inputStrokeDatas: inputStrokeDatas,
@@ -59,10 +65,13 @@ var Content = React.createClass({
       {
         this.state.screenShift ?
         <div>
+        {
+          this.state.selectedScreen ?
+        <div>
         <ProgressElement percent={this.state.progressPercent} />
-        <FormElement
+        <CancerFormElement
 
-          inputs={this.state.selectedScreen ? this.state.inputCancerDatas : this.state.inputStrokeDatas}
+          inputs={this.state.inputCancerDatas}
 
           onChangeInputHandler={this._onChangeInputHandler}
           onSubmitFormHandler={this._onSubmitFormHandler}
@@ -73,13 +82,30 @@ var Content = React.createClass({
             closePopup={this.togglePopup} />
           : null }
           </div>
+          :
+          <div>
+          <ProgressElement percent={this.state.progressPercent} />
+          <StrokeFormElement
+
+            inputs={this.state.inputStrokeDatas}
+
+            onChangeInputHandler={this._onChangeInputHandler}
+            onSubmitFormHandler={this._onSubmitFormHandler}
+            percent={this.state.progressPercent} />
+            {this.state.showPopup ?
+            <Popup
+              text={this.state.message}
+              closePopup={this.togglePopup} />
+            : null }
+            </div>
+          }
+         </div>
         : <div>
-          <LandingElement screenShift={this.state.screenShift} />
+          <LandingElement {...this.state} _onSubmit={this._onSubmit}/>
           </div>
       }
       </div>
     );
-
   },
   _initialInputVerification: function () {
 

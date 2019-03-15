@@ -6,21 +6,19 @@ var LandingElement = React.createClass({
     return(
       <div style={{display: "flex", align: "center"}}>
       <button style={{margin:"20px"}}>
-        <img src="./resources/ad1.png" alt="my image" onClick={this._onSubmit} />
+        <img src="./resources/ad1.png" alt="my image" onClick={this._onSubmit1} />
         </button>
       <button style={{margin:"20px"}}>
-        <img src="./resources/ad2.png" alt="my image" onClick={this._onSubmit} />
+        <img src="./resources/ad2.png" alt="my image" onClick={this._onSubmit2} />
         </button>
       </div>
     );
   },
-  _onSubmit: function(){
-    this.setState({
-      screenShift: !this.props.screenShift
-    });
-    // Shifting screen
-    console.log(" I just clicked the button. Good for me.");
-    console.log("Props: ", this.props);
+  _onSubmit1: function(){
+    this.props._onSubmit(true);
+  },
+  _onSubmit2: function(){
+    this.props._onSubmit(false);
   }
 });
 

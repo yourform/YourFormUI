@@ -7,6 +7,7 @@ var SubmitElement = require('../Submit');
 var CancerFormElement = React.createClass({
   render: function() {
     var props = this.props;
+    console.log("MY PROPS: ", props);
     var inputNodes = props.inputs.map( function ( item, index  ) {
       return <CancerInputElement
                 key={index}

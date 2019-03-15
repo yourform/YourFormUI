@@ -18815,21 +18815,19 @@ var LandingElement = React.createClass({displayName: "LandingElement",
     return(
       React.createElement("div", {style: {display: "flex", align: "center"}}, 
       React.createElement("button", {style: {margin:"20px"}}, 
-        React.createElement("img", {src: "./resources/ad1.png", alt: "my image", onClick: this._onSubmit})
+        React.createElement("img", {src: "./resources/ad1.png", alt: "my image", onClick: this._onSubmit1})
         ), 
       React.createElement("button", {style: {margin:"20px"}}, 
-        React.createElement("img", {src: "./resources/ad2.png", alt: "my image", onClick: this._onSubmit})
+        React.createElement("img", {src: "./resources/ad2.png", alt: "my image", onClick: this._onSubmit2})
         )
       )
     );
   },
-  _onSubmit: function(){
-    this.setState({
-      screenShift: !this.props.screenShift
-    });
-    // Shifting screen
-    console.log(" I just clicked the button. Good for me.");
-    console.log("Props: ", this.props);
+  _onSubmit1: function(){
+    this.props._onSubmit(true);
+  },
+  _onSubmit2: function(){
+    this.props._onSubmit(false);
   }
 });
 
@@ -18908,6 +18906,7 @@ var SubmitElement = require('../Submit');
 var CancerFormElement = React.createClass({displayName: "CancerFormElement",
   render: function() {
     var props = this.props;
+    console.log("MY PROPS: ", props);
     var inputNodes = props.inputs.map( function ( item, index  ) {
       return React.createElement(CancerInputElement, {
                 key: index, 
@@ -19291,7 +19290,7 @@ var LandingElement        = require('./components/Landing');
 var ProgressElement       = require('./components/Progress');
 var CancerFormElement     = require('./components/cancer/Form');
 var StrokeFormElement     = require('./components/stroke/Form');
-var inputDatas      = require('./datas/CancerInputDatas');      // default
+var inputDatas            = require('./datas/CancerInputDatas');      // default
 var inputCancerDatas      = require('./datas/CancerInputDatas');
 var inputStrokeDatas      = require('./datas/StrokeInputDatas');
 
@@ -19325,10 +19324,18 @@ var Content = React.createClass({displayName: "Content",
       showPopup: !this.state.showPopup
     });
   },
+  _onSubmit: function(selectedScreen){
+    this.setState({
+      screenShift: !this.state.screenShift,
+      selectedScreen: selectedScreen
+    });
+  },
+  componentWillMount: function(){
+    this._onSubmit = this._onSubmit.bind(this, true);
+  },
   componentDidMount: function () {
-
-    var inputCancerDatas = this.props.inputCancerDatas;
-    var inputStrokeDatas = this.props.inputStrokeDatas;
+    console.log("INPUT CANCER DATA: ", inputCancerDatas);
+    console.log("INPUT STROKE DATA: ", inputStrokeDatas);
     this.setState( { inputDatas: inputCancerDatas,  //default
                      inputCancerDatas: inputCancerDatas,
                      inputStrokeDatas: inputStrokeDatas,
@@ -19344,10 +19351,13 @@ var Content = React.createClass({displayName: "Content",
       
         this.state.screenShift ?
         React.createElement("div", null, 
+        
+          this.state.selectedScreen ?
+        React.createElement("div", null, 
         React.createElement(ProgressElement, {percent: this.state.progressPercent}), 
-        React.createElement(FormElement, {
+        React.createElement(CancerFormElement, {
 
-          inputs: this.state.selectedScreen ? this.state.inputCancerDatas : this.state.inputStrokeDatas, 
+          inputs: this.state.inputCancerDatas, 
 
           onChangeInputHandler: this._onChangeInputHandler, 
           onSubmitFormHandler: this._onSubmitFormHandler, 
@@ -19358,13 +19368,30 @@ var Content = React.createClass({displayName: "Content",
             closePopup: this.togglePopup})
           : null
           )
+          :
+          React.createElement("div", null, 
+          React.createElement(ProgressElement, {percent: this.state.progressPercent}), 
+          React.createElement(StrokeFormElement, {
+
+            inputs: this.state.inputStrokeDatas, 
+
+            onChangeInputHandler: this._onChangeInputHandler, 
+            onSubmitFormHandler: this._onSubmitFormHandler, 
+            percent: this.state.progressPercent}), 
+            this.state.showPopup ?
+            React.createElement(Popup, {
+              text: this.state.message, 
+              closePopup: this.togglePopup})
+            : null
+            )
+          
+         )
         : React.createElement("div", null, 
-          React.createElement(LandingElement, {screenShift: this.state.screenShift})
+          React.createElement(LandingElement, React.__spread({},  this.state, {_onSubmit: this._onSubmit}))
           )
       
       )
     );
-
   },
   _initialInputVerification: function () {
 
