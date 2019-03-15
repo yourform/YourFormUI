@@ -347,6 +347,7 @@ var Content = React.createClass({
       .then(res => res.json())
       .then(
         (result) => {
+          console.log("STROKE RESULT: ", res);
           var finalMessage = "You're at the lowest risk of contracting cervical cancer."; // default message
           if(parseInt(result) == 0){
             finalMessage = "You're at the lowest risk of contracting cervical cancer.";

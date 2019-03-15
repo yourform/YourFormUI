@@ -42,7 +42,6 @@ var datas = [
     value: "",
     validation: {
       rules: { hypertension: [ "required", "regex:/Yes|No|yes|no/" ] },
-      // rules: { lang: [ "required", "regex:/^javascript$/" ] },
       messages: { "required.hypertension": 'Do you have Hypertension?', 'regex.hypertension': 'Please enter Yes/No' }
     },
     pristine: true,
@@ -98,12 +97,12 @@ var datas = [
     errorMessage: ''
   },
   {
-    id: "hfeet",
+    id: "hFeet",
     label: "Please enter your height (in feet)",
     value: "",
     validation: {
-      rules: { iud: [ "required", "float" ] },
-      messages: { "required.hfeet": 'Your height', 'float.hfeet': 'Please enter a valid number' }
+      rules: { hFeet: [ "required", "float" ] },
+      messages: { "required.hFeet": 'Your height', 'float.hFeet': 'Please enter a valid number' }
     },
     pristine: true,
     hasError: false,
@@ -114,7 +113,7 @@ var datas = [
     label: "Please enter your weight (in pounds)",
     value: "",
     validation: {
-      rules: { std: [ "required", "integer" ] },
+      rules: { wPounds: [ "required", "integer" ] },
       messages: { "required.wPounds": 'Your weight', 'integer.wPounds': 'Please enter a valid number' }
     },
     pristine: true,
