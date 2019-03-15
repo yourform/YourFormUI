@@ -18824,9 +18824,11 @@ var LandingElement = React.createClass({displayName: "LandingElement",
     );
   },
   _onSubmit1: function(){
+    console.log("CALLED CANCER AD");
     this.props._onSubmit(true);
   },
   _onSubmit2: function(){
+    console.log("CALLED STROKE AD");
     this.props._onSubmit(false);
   }
 });
@@ -18970,6 +18972,7 @@ var SubmitElement = require('../Submit');
 var StrokeFormElement = React.createClass({displayName: "StrokeFormElement",
   render: function() {
     var props = this.props;
+    console.log("MY PROPS: ", props);
     var inputNodes = props.inputs.map( function ( item, index  ) {
       return React.createElement(StrokeInputElement, {
                 key: index, 
@@ -19180,97 +19183,97 @@ var datas = [
     errorMessage: ''
   },
   {
-    id: "numberSexual",
-    label: "Number of Sexual Partners",
+    id: "gender",
+    label: "Your Gender",
     value: "",
     validation: {
-      rules: { numberSexual: [ "required", "integer" ] },
-      messages: { "required.numberSexual": 'How many sexual partners have you had uptil now?', 'numberSexual.numberSexual': 'Please enter a valid number' }
+      rules: { gender: [ "required", "regex:/Female|F|female|Male|male|M|Other|other/" ] },
+      messages: { "required.gender": 'What is your gender?', 'regex.gender': 'Please enter Female/Male/Other' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "firstSex",
-    label: "Age during first Sexual Intercourse",
+    id: "hypertension",
+    label: "Have you been diagnosed with Hypertension?",
     value: "",
     validation: {
-      rules: { firstSex: [ "required", "integer" ] },
+      rules: { hypertension: [ "required", "regex:/Yes|No|yes|no/" ] },
       // rules: { lang: [ "required", "regex:/^javascript$/" ] },
-      messages: { "required.firstSex": 'Your age during first sexual intercourse', 'integer.firstSex': 'Please enter a valid number' }
+      messages: { "required.hypertension": 'Do you have Hypertension?', 'regex.hypertension': 'Please enter Yes/No' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "numberPregnancies",
-    label: "Number of Pregnancies",
+    id: "heartDisease",
+    label: "Have you been diagnosed with Heart Disease?",
     value: "",
     validation: {
-      rules: { numberPregnancies: [ "required", "integer" ] },
-      messages: { "required.numberPregnancies": 'How many pregnancies have you undergone (successful and unsuccessful) uptil now?', 'integer.numberPregnancies': 'Please enter a valid number' }
+      rules: { heartDisease: [ "required", "regex:/Yes|No|yes|no/" ] },
+      messages: { "required.heartDisease": 'Do you have Heart Disease?', 'regex.heartDisease': 'Please enter Yes/No' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "smokeYears",
-    label: "How many years have you been smoking (if at all) for?",
+    id: "everMarried",
+    label: "Have you ever been married / Are you married?",
     value: "",
     validation: {
-      rules: { smokeYears: [ "required", "integer" ] },
-      messages: { "required.smokeYears": 'How many years have you been smoking (if at all) from?', 'integer.smokeYears': 'Please enter a valid number' }
+      rules: { everMarried: [ "required", "regex:/Yes|No|yes|no/" ] },
+      messages: { "required.everMarried": 'Are you married or are divorced', 'regex.everMarried': 'Please enter Yes/No' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "smokePacks",
-    label: "Number of packs you smoke per year?",
+    id: "workType",
+    label: "What kind of job do you have? [Government Job / Never worked / Private / Self Employed / Other]",
     value: "",
     validation: {
-      rules: { smokePacks: [ "required", "integer" ] },
-      messages: { "required.numberPregnancies": 'How many packs of cigarettes in a year?', 'integer.smokePacks': 'Please enter a valid number' }
+      rules: { workType: [ "required", "regex:/Government Job|Never worked|Private|Self Employed|Other/" ] },
+      messages: { "required.workType": 'Write the category of your job', 'regex.workType': 'Please type a valid option' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "contraceptiveYears",
-    label: "Number of years you've been consuming contraceptives (if at all)?",
+    id: "residence",
+    label: "What kind of residence do you live in? [Rural/Urban]",
     value: "",
     validation: {
-      rules: { contraceptiveYears: [ "required", "integer" ] },
-      messages: { "required.contraceptiveYears": 'How many years have you been consuming contraceptives from?', 'integer.contraceptiveYears': 'Please enter a valid number' }
+      rules: { residence: [ "required", "regex:/Rural|rural|Urban|urban/" ] },
+      messages: { "required.residence": 'What kind of home do you live in?', 'regex.residence': 'Please type a valid option' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "iud",
-    label: "Since how many years do you have an IUD (if at all)?",
+    id: "hfeet",
+    label: "Please enter your height (in feet)",
     value: "",
     validation: {
-      rules: { iud: [ "required", "integer" ] },
-      messages: { "required.iud": 'Do you have an IUD?', 'integer.iud': 'Please enter a number' }
+      rules: { iud: [ "required", "float" ] },
+      messages: { "required.hfeet": 'Your height', 'float.hfeet': 'Please enter a valid number' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "std",
-    label: "Have you been diagnosed with any STDs?",
+    id: "wPounds",
+    label: "Please enter your weight (in pounds)",
     value: "",
     validation: {
-      rules: { std: [ "required", "regex:/Yes|No|yes|no/" ] },
-      messages: { "required.std": 'Have you been diagnosed with any STD?', 'regex.std': 'Please enter Yes/No' }
+      rules: { std: [ "required", "integer" ] },
+      messages: { "required.wPounds": 'Your weight', 'integer.wPounds': 'Please enter a valid number' }
     },
     pristine: true,
     hasError: false,
@@ -19324,18 +19327,28 @@ var Content = React.createClass({displayName: "Content",
       showPopup: !this.state.showPopup
     });
   },
-  _onSubmit: function(selectedScreen){
-    this.setState({
-      screenShift: !this.state.screenShift,
-      selectedScreen: selectedScreen
-    });
+  _onSubmitting: function(myScreen){
+    console.log("SELECTED SCREEN: ", myScreen);
+    if(myScreen){
+      this.setState({
+        inputDatas: inputCancerDatas,
+        selectedScreen: myScreen,
+        screenShift: !this.state.screenShift
+      });
+    }
+    else{
+      this.setState({
+        inputDatas: inputStrokeDatas,
+        selectedScreen: myScreen,
+        screenShift: !this.state.screenShift
+      });
+    }
+    console.log("CHECKING MY STATUS RIGHT NOW: ", this.state);
   },
   componentWillMount: function(){
-    this._onSubmit = this._onSubmit.bind(this, true);
+    this._onSubmit = this._onSubmitting.bind(this, true);
   },
   componentDidMount: function () {
-    console.log("INPUT CANCER DATA: ", inputCancerDatas);
-    console.log("INPUT STROKE DATA: ", inputStrokeDatas);
     this.setState( { inputDatas: inputCancerDatas,  //default
                      inputCancerDatas: inputCancerDatas,
                      inputStrokeDatas: inputStrokeDatas,
@@ -19387,7 +19400,7 @@ var Content = React.createClass({displayName: "Content",
           
          )
         : React.createElement("div", null, 
-          React.createElement(LandingElement, React.__spread({},  this.state, {_onSubmit: this._onSubmit}))
+          React.createElement(LandingElement, React.__spread({},  this.state, {_onSubmit: this._onSubmitting}))
           )
       
       )
@@ -19536,34 +19549,80 @@ var Content = React.createClass({displayName: "Content",
 
     else{   // selected screen is stroke
 
+      let gender, hypertension, heartDisease, everMarried, workType, residence;
+
+      if(this.state.inputDatas[2].value == "Female" || this.state.inputDatas[2].value == "female"){
+        gender = 0;
+      }
+      else{
+        gender = 1;
+      }
+
+      if(this.state.inputDatas[3].value == "Yes" || this.state.inputDatas[3].value == "yes"){
+        hypertension = 1;
+      }
+      else{
+        hypertension = 0;
+      }
+
+      if(this.state.inputDatas[4].value == "Yes" || this.state.inputDatas[4].value == "yes"){
+        heartDisease = 1;
+      }
+      else{
+        heartDisease = 0;
+      }
+
+      if(this.state.inputDatas[5].value == "Yes" || this.state.inputDatas[5].value == "yes"){
+        everMarried = 1;
+      }
+      else{
+        everMarried = 0;
+      }
+
+      if(this.state.inputDatas[6].value == "Government Job"){
+        workType = 0;
+      }
+
+      if(this.state.inputDatas[6].value == "Never worked"){
+        workType = 1;
+      }
+
+      if(this.state.inputDatas[6].value == "Private"){
+        workType = 2;
+      }
+
+      if(this.state.inputDatas[6].value == "Self Employed"){
+        workType = 3;
+      }
+
+      else{
+        workType = 4;
+      }
+
+      if(this.state.inputDatas[7].value == "Urban" || this.state.inputDatas[7].value == "urban"){
+        residence = 1;
+      }
+
+      else{
+        residence = 0;
+      }
+
       let query = {"name": this.state.inputDatas[0].value,
                    "age": parseInt(this.state.inputDatas[1].value),
-                   "partners": parseInt(this.state.inputDatas[2].value),
-                   "intercourse": parseInt(this.state.inputDatas[3].value),
-                   "pregnancies": parseInt(this.state.inputDatas[4].value),
-                   "smokes": parseInt(this.state.inputDatas[5].value),
-                   "smokePacks": parseInt(this.state.inputDatas[6].value),
-                   "contraceptives": parseInt(this.state.inputDatas[7].value),
-                   "iud": parseInt(this.state.inputDatas[8].value),
-                   "stds": 0,
-                   "stdsNum": 0,
-                   "condyl": 0,
-                   "vCondyl": 0,
-                   "pid": 0,
-                   "hiv": 0,
-                   "cCondyl": 0,
-                   "vpc": 0,
-                   "gHerpes": 0,
-                   "hepB": 0,
-                   "syphilis": 0,
-                   "molCont": 0,
-                   "hpv": 0,
-                   "aids": 0
+                   "gender": gender,
+                   "hypertension": hypertension,
+                   "heartDisease": heartDisease,
+                   "everMarried": everMarried,
+                   "workType": workType,
+                   "residence": residence,
+                   "hFeet": parseInt(this.state.inputDatas[8].value),
+                   "hInches": 0,
+                   "wPounds": parseInt(this.state.inputDatas[9].value)
                   };
 
       console.log("MY STATE NOW: ", this.state);
 
-      fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
+      fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict/stroke",
       {
         method: "POST",
         mode: "cors",

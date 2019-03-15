@@ -40,14 +40,26 @@ var Content = React.createClass({
       showPopup: !this.state.showPopup
     });
   },
-  _onSubmit: function(selectedScreen){
-    this.setState({
-      screenShift: !this.state.screenShift,
-      selectedScreen: selectedScreen
-    });
+  _onSubmitting: function(myScreen){
+    console.log("SELECTED SCREEN: ", myScreen);
+    if(myScreen){
+      this.setState({
+        inputDatas: inputCancerDatas,
+        selectedScreen: myScreen,
+        screenShift: !this.state.screenShift
+      });
+    }
+    else{
+      this.setState({
+        inputDatas: inputStrokeDatas,
+        selectedScreen: myScreen,
+        screenShift: !this.state.screenShift
+      });
+    }
+    console.log("CHECKING MY STATUS RIGHT NOW: ", this.state);
   },
   componentWillMount: function(){
-    this._onSubmit = this._onSubmit.bind(this, true);
+    this._onSubmit = this._onSubmitting.bind(this, true);
   },
   componentDidMount: function () {
     this.setState( { inputDatas: inputCancerDatas,  //default
@@ -101,7 +113,7 @@ var Content = React.createClass({
           }
          </div>
         : <div>
-          <LandingElement {...this.state} _onSubmit={this._onSubmit}/>
+          <LandingElement {...this.state} _onSubmit={this._onSubmitting}/>
           </div>
       }
       </div>
@@ -250,34 +262,80 @@ var Content = React.createClass({
 
     else{   // selected screen is stroke
 
+      let gender, hypertension, heartDisease, everMarried, workType, residence;
+
+      if(this.state.inputDatas[2].value == "Female" || this.state.inputDatas[2].value == "female"){
+        gender = 0;
+      }
+      else{
+        gender = 1;
+      }
+
+      if(this.state.inputDatas[3].value == "Yes" || this.state.inputDatas[3].value == "yes"){
+        hypertension = 1;
+      }
+      else{
+        hypertension = 0;
+      }
+
+      if(this.state.inputDatas[4].value == "Yes" || this.state.inputDatas[4].value == "yes"){
+        heartDisease = 1;
+      }
+      else{
+        heartDisease = 0;
+      }
+
+      if(this.state.inputDatas[5].value == "Yes" || this.state.inputDatas[5].value == "yes"){
+        everMarried = 1;
+      }
+      else{
+        everMarried = 0;
+      }
+
+      if(this.state.inputDatas[6].value == "Government Job"){
+        workType = 0;
+      }
+
+      if(this.state.inputDatas[6].value == "Never worked"){
+        workType = 1;
+      }
+
+      if(this.state.inputDatas[6].value == "Private"){
+        workType = 2;
+      }
+
+      if(this.state.inputDatas[6].value == "Self Employed"){
+        workType = 3;
+      }
+
+      else{
+        workType = 4;
+      }
+
+      if(this.state.inputDatas[7].value == "Urban" || this.state.inputDatas[7].value == "urban"){
+        residence = 1;
+      }
+
+      else{
+        residence = 0;
+      }
+
       let query = {"name": this.state.inputDatas[0].value,
                    "age": parseInt(this.state.inputDatas[1].value),
-                   "partners": parseInt(this.state.inputDatas[2].value),
-                   "intercourse": parseInt(this.state.inputDatas[3].value),
-                   "pregnancies": parseInt(this.state.inputDatas[4].value),
-                   "smokes": parseInt(this.state.inputDatas[5].value),
-                   "smokePacks": parseInt(this.state.inputDatas[6].value),
-                   "contraceptives": parseInt(this.state.inputDatas[7].value),
-                   "iud": parseInt(this.state.inputDatas[8].value),
-                   "stds": 0,
-                   "stdsNum": 0,
-                   "condyl": 0,
-                   "vCondyl": 0,
-                   "pid": 0,
-                   "hiv": 0,
-                   "cCondyl": 0,
-                   "vpc": 0,
-                   "gHerpes": 0,
-                   "hepB": 0,
-                   "syphilis": 0,
-                   "molCont": 0,
-                   "hpv": 0,
-                   "aids": 0
+                   "gender": gender,
+                   "hypertension": hypertension,
+                   "heartDisease": heartDisease,
+                   "everMarried": everMarried,
+                   "workType": workType,
+                   "residence": residence,
+                   "hFeet": parseInt(this.state.inputDatas[8].value),
+                   "hInches": 0,
+                   "wPounds": parseInt(this.state.inputDatas[9].value)
                   };
 
       console.log("MY STATE NOW: ", this.state);
 
-      fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
+      fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict/stroke",
       {
         method: "POST",
         mode: "cors",

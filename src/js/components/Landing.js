@@ -15,9 +15,11 @@ var LandingElement = React.createClass({
     );
   },
   _onSubmit1: function(){
+    console.log("CALLED CANCER AD");
     this.props._onSubmit(true);
   },
   _onSubmit2: function(){
+    console.log("CALLED STROKE AD");
     this.props._onSubmit(false);
   }
 });

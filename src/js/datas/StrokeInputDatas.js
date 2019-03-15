@@ -25,97 +25,97 @@ var datas = [
     errorMessage: ''
   },
   {
-    id: "numberSexual",
-    label: "Number of Sexual Partners",
+    id: "gender",
+    label: "Your Gender",
     value: "",
     validation: {
-      rules: { numberSexual: [ "required", "integer" ] },
-      messages: { "required.numberSexual": 'How many sexual partners have you had uptil now?', 'numberSexual.numberSexual': 'Please enter a valid number' }
+      rules: { gender: [ "required", "regex:/Female|F|female|Male|male|M|Other|other/" ] },
+      messages: { "required.gender": 'What is your gender?', 'regex.gender': 'Please enter Female/Male/Other' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "firstSex",
-    label: "Age during first Sexual Intercourse",
+    id: "hypertension",
+    label: "Have you been diagnosed with Hypertension?",
     value: "",
     validation: {
-      rules: { firstSex: [ "required", "integer" ] },
+      rules: { hypertension: [ "required", "regex:/Yes|No|yes|no/" ] },
       // rules: { lang: [ "required", "regex:/^javascript$/" ] },
-      messages: { "required.firstSex": 'Your age during first sexual intercourse', 'integer.firstSex': 'Please enter a valid number' }
+      messages: { "required.hypertension": 'Do you have Hypertension?', 'regex.hypertension': 'Please enter Yes/No' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "numberPregnancies",
-    label: "Number of Pregnancies",
+    id: "heartDisease",
+    label: "Have you been diagnosed with Heart Disease?",
     value: "",
     validation: {
-      rules: { numberPregnancies: [ "required", "integer" ] },
-      messages: { "required.numberPregnancies": 'How many pregnancies have you undergone (successful and unsuccessful) uptil now?', 'integer.numberPregnancies': 'Please enter a valid number' }
+      rules: { heartDisease: [ "required", "regex:/Yes|No|yes|no/" ] },
+      messages: { "required.heartDisease": 'Do you have Heart Disease?', 'regex.heartDisease': 'Please enter Yes/No' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "smokeYears",
-    label: "How many years have you been smoking (if at all) for?",
+    id: "everMarried",
+    label: "Have you ever been married / Are you married?",
     value: "",
     validation: {
-      rules: { smokeYears: [ "required", "integer" ] },
-      messages: { "required.smokeYears": 'How many years have you been smoking (if at all) from?', 'integer.smokeYears': 'Please enter a valid number' }
+      rules: { everMarried: [ "required", "regex:/Yes|No|yes|no/" ] },
+      messages: { "required.everMarried": 'Are you married or are divorced', 'regex.everMarried': 'Please enter Yes/No' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "smokePacks",
-    label: "Number of packs you smoke per year?",
+    id: "workType",
+    label: "What kind of job do you have? [Government Job / Never worked / Private / Self Employed / Other]",
     value: "",
     validation: {
-      rules: { smokePacks: [ "required", "integer" ] },
-      messages: { "required.numberPregnancies": 'How many packs of cigarettes in a year?', 'integer.smokePacks': 'Please enter a valid number' }
+      rules: { workType: [ "required", "regex:/Government Job|Never worked|Private|Self Employed|Other/" ] },
+      messages: { "required.workType": 'Write the category of your job', 'regex.workType': 'Please type a valid option' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "contraceptiveYears",
-    label: "Number of years you've been consuming contraceptives (if at all)?",
+    id: "residence",
+    label: "What kind of residence do you live in? [Rural/Urban]",
     value: "",
     validation: {
-      rules: { contraceptiveYears: [ "required", "integer" ] },
-      messages: { "required.contraceptiveYears": 'How many years have you been consuming contraceptives from?', 'integer.contraceptiveYears': 'Please enter a valid number' }
+      rules: { residence: [ "required", "regex:/Rural|rural|Urban|urban/" ] },
+      messages: { "required.residence": 'What kind of home do you live in?', 'regex.residence': 'Please type a valid option' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "iud",
-    label: "Since how many years do you have an IUD (if at all)?",
+    id: "hfeet",
+    label: "Please enter your height (in feet)",
     value: "",
     validation: {
-      rules: { iud: [ "required", "integer" ] },
-      messages: { "required.iud": 'Do you have an IUD?', 'integer.iud': 'Please enter a number' }
+      rules: { iud: [ "required", "float" ] },
+      messages: { "required.hfeet": 'Your height', 'float.hfeet': 'Please enter a valid number' }
     },
     pristine: true,
     hasError: false,
     errorMessage: ''
   },
   {
-    id: "std",
-    label: "Have you been diagnosed with any STDs?",
+    id: "wPounds",
+    label: "Please enter your weight (in pounds)",
     value: "",
     validation: {
-      rules: { std: [ "required", "regex:/Yes|No|yes|no/" ] },
-      messages: { "required.std": 'Have you been diagnosed with any STD?', 'regex.std': 'Please enter Yes/No' }
+      rules: { std: [ "required", "integer" ] },
+      messages: { "required.wPounds": 'Your weight', 'integer.wPounds': 'Please enter a valid number' }
     },
     pristine: true,
     hasError: false,
