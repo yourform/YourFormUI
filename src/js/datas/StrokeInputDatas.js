@@ -9,7 +9,7 @@ var datas = [
       messages: { "required.name": 'Enter your first and last name', 'regex.name': 'First name and Last Name' }
     },
     pristine: true,
-    hasError: false,
+    hasError: true,
     errorMessage: ''
   },
   {
@@ -21,7 +21,7 @@ var datas = [
       messages: { "required.age": 'Enter your age', 'integer.age': 'Please enter a number' }
     },
     pristine: true,
-    hasError: false,
+    hasError: true,
     errorMessage: ''
   },
   {
@@ -33,7 +33,7 @@ var datas = [
       messages: { "required.gender": 'What is your gender?', 'regex.gender': 'Please enter Female/Male/Other' }
     },
     pristine: true,
-    hasError: false,
+    hasError: true,
     errorMessage: ''
   },
   {
@@ -45,7 +45,7 @@ var datas = [
       messages: { "required.hypertension": 'Do you have Hypertension?', 'regex.hypertension': 'Please enter Yes/No' }
     },
     pristine: true,
-    hasError: false,
+    hasError: true,
     errorMessage: ''
   },
   {
@@ -57,7 +57,7 @@ var datas = [
       messages: { "required.heartDisease": 'Do you have Heart Disease?', 'regex.heartDisease': 'Please enter Yes/No' }
     },
     pristine: true,
-    hasError: false,
+    hasError: true,
     errorMessage: ''
   },
   {
@@ -69,7 +69,7 @@ var datas = [
       messages: { "required.everMarried": 'Are you married or are divorced', 'regex.everMarried': 'Please enter Yes/No' }
     },
     pristine: true,
-    hasError: false,
+    hasError: true,
     errorMessage: ''
   },
   {
@@ -81,7 +81,7 @@ var datas = [
       messages: { "required.workType": 'Write the category of your job', 'regex.workType': 'Please type a valid option' }
     },
     pristine: true,
-    hasError: false,
+    hasError: true,
     errorMessage: ''
   },
   {
@@ -93,7 +93,7 @@ var datas = [
       messages: { "required.residence": 'What kind of home do you live in?', 'regex.residence': 'Please type a valid option' }
     },
     pristine: true,
-    hasError: false,
+    hasError: true,
     errorMessage: ''
   },
   {
@@ -105,7 +105,7 @@ var datas = [
       messages: { "required.hFeet": 'Your height', 'float.hFeet': 'Please enter a valid number' }
     },
     pristine: true,
-    hasError: false,
+    hasError: true,
     errorMessage: ''
   },
   {
@@ -117,7 +117,7 @@ var datas = [
       messages: { "required.wPounds": 'Your weight', 'integer.wPounds': 'Please enter a valid number' }
     },
     pristine: true,
-    hasError: false,
+    hasError: true,
     errorMessage: ''
   }
 ];

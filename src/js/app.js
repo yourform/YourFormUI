@@ -144,15 +144,11 @@ var Content = React.createClass({
     var done = 0;
     var progressPercent;
     this.state.inputDatas.forEach( function( item ) {
-      console.log("Input data iteration: ", item);
       if( item.hasError === false ) {
         done += 1;
       }
-      console.log("done: ", done);
     });
     progressPercent = done/total*100;
-    console.log("Total length: ", total);
-    console.log("Done: ", done);
     this.setState( { progressPercent: progressPercent } );
 
   },
