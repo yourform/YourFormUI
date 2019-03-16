@@ -41,7 +41,6 @@ var Content = React.createClass({
     });
   },
   _onSubmitting: function(myScreen){
-    console.log("SELECTED SCREEN: ", myScreen);
     if(myScreen){
       this.setState({
         inputDatas: inputCancerDatas,
@@ -56,7 +55,6 @@ var Content = React.createClass({
         screenShift: !this.state.screenShift
       });
     }
-    console.log("CHECKING MY STATUS RIGHT NOW: ", this.state);
   },
   componentWillMount: function(){
     this._onSubmit = this._onSubmitting.bind(this, true);
@@ -146,11 +144,15 @@ var Content = React.createClass({
     var done = 0;
     var progressPercent;
     this.state.inputDatas.forEach( function( item ) {
+      console.log("Input data iteration: ", item);
       if( item.hasError === false ) {
         done += 1;
       }
+      console.log("done: ", done);
     });
     progressPercent = done/total*100;
+    console.log("Total length: ", total);
+    console.log("Done: ", done);
     this.setState( { progressPercent: progressPercent } );
 
   },
@@ -174,7 +176,12 @@ var Content = React.createClass({
       inputDatas[index].hasError = true;
       inputDatas[index].errorMessage  = validation.errors.first( item.id );
     }
-    this.setState( { inputDatas: inputDatas } );
+    if(this.state.selectedScreen == true){
+      this.setState( { inputDatas: inputCancerDatas } );
+    }
+    else{
+      this.setState( { inputDatas: inputStrokeDatas } );
+    }
 
   },
   _onChangeInputHandler: function ( index, value ) {
@@ -212,8 +219,6 @@ var Content = React.createClass({
                    "aids": 0
                   };
 
-      console.log("MY STATE NOW: ", this.state);
-
       fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict",
       {
         method: "POST",
@@ -248,7 +253,6 @@ var Content = React.createClass({
             showPopup: true,
             message: finalMessage
           });
-          console.log("MY STATE FINALLY: ", this.state);
         },
         (error) => {
           this.setState({
@@ -333,8 +337,6 @@ var Content = React.createClass({
                    "wPounds": parseInt(this.state.inputDatas[9].value)
                   };
 
-      console.log("MY STATE NOW: ", this.state);
-
       fetch("http://yourform.westus.cloudapp.azure.com:3000/api/predict/stroke",
       {
         method: "POST",
@@ -347,22 +349,12 @@ var Content = React.createClass({
       .then(res => res.json())
       .then(
         (result) => {
-          console.log("STROKE RESULT: ", res);
-          var finalMessage = "You're at the lowest risk of contracting cervical cancer."; // default message
+          var finalMessage = "You're at the low risk of suffering from a Stroke"; // default message
           if(parseInt(result) == 0){
-            finalMessage = "You're at the lowest risk of contracting cervical cancer.";
+            finalMessage = "You're at a low risk of suffering from a Stroke.";
           }
-          if(parseInt(result) == 1){
-            finalMessage = "You are at low risk of contracting cervical cancer.";
-          }
-          if(parseInt(result) == 2){
-            finalMessage = "You could contract cervical cancer in the next 5 years.";
-          }
-          if(parseInt(result) == 3){
-            finalMessage = "You're at high risk of contracting cervical cancer.";
-          }
-          if(parseInt(result) == 4){
-            finalMessage = "You're at the highest risk of contracting cervical cancer.";
+          else{
+            finalMessage = "You're at a high risk of suffering from a Stroke."
           }
           this.setState({
             isLoaded: true,
@@ -370,7 +362,6 @@ var Content = React.createClass({
             showPopup: true,
             message: finalMessage
           });
-          console.log("MY STATE FINALLY: ", this.state);
         },
         (error) => {
           this.setState({

@@ -7,7 +7,6 @@ var SubmitElement = require('../Submit');
 var StrokeFormElement = React.createClass({
   render: function() {
     var props = this.props;
-    console.log("MY PROPS: ", props);
     var inputNodes = props.inputs.map( function ( item, index  ) {
       return <StrokeInputElement
                 key={index}
